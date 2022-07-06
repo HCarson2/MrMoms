@@ -1,7 +1,11 @@
+// IMPORT DOTENV MODULE TO CONNECT TO OUR CONFIG FILE
 require('dotenv').config()
-const express = require('express');
 
-// Express app
+// IMPORT EXPRESS IN ORDER TO CREATE OUR EXPRESS APPLICATION
+const express = require('express');
+const mrMomRoutes = require('./routes/mrMoms')
+
+// CREATE A VARIABLE TO HOLD OUR EXPRESS METHODS
 const app = express();
 
 // Middleware
@@ -11,9 +15,7 @@ app.use((req, res, next) => {
 })
 
 // Routes
-app.get('/', (req, res) => {
-    res.json({mssg: 'Welcome to the app'})
-    })
+app.use('/api/mrMoms', mrMomRoutes)
 
 // Listen for request
 app.listen(process.env.PORT, () => {
