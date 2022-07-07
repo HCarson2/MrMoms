@@ -1,33 +1,32 @@
 // IMPORT EXPRESS IN ORDER TO CREATE OUR EXPRESS APPLICATION
 const express = require('express');
 
+// Import mrMom Controllers
+const{
+    createMrMom,
+    getMrMoms,
+    getMrMom,
+    deleteMrMom,
+    updateMrMom
+} = require('../controllers/mrMomControllers')
 
+// CREATE mrMom ROUTER
 const router = express.Router()
 
 // Get all mrMoms
-router.get('/', (req, res) => {
-    res.json({mssg: 'Get all mrMoms'})
-});
+router.get('/', getMrMoms) 
 
 // Get a single mrMoms
-router.get('/:id', (req, res) => {
-    res.json({mssg: 'Get a single mrMom'})
-})
+router.get('/:id', getMrMom)
 
 // Post/create a new mrMom
-router.post('/', (req, res) => {
-    res.json({messg: 'Create a new mrMom'})
-})
+router.post('/', createMrMom)
 
 // Delete a mrMom
-router.delete('/:id', (req, res) => {
-    res.json({messg: 'Delete a new mrMom'})
-})
+router.delete('/:id', deleteMrMom)
 
 // Update a mrMom
-router.patch('/:id', (req, res) => {
-    res.json({messg: 'Update a new mrMom'})
-})
+router.patch('/:id', updateMrMom)
 
-
+// EXPORT ROUTER
 module.exports = router
