@@ -1,31 +1,28 @@
 
-import { useEffect, useState }from 'react'
+import { useEffect }from 'react'
+import { useMrMomsContext } from '../hooks/useMrMomsContext'
 
 // Components
 import MrMomDuties from '../components/MrMomDuties'
 import MrMomForm from '../components/MrMomForm'
 
 const Home = () => {
-    const [mrMoms, setMrMoms] = useState(null)
+    const {mrMoms, dispatch} = useMrMomsContext()
 
     useEffect(() => {
         const fetchMrMoms = async () => {
             const response = await fetch('/api/mrMoms')
-            
             // This passes Json and created an array of objects
             const json = await response.json()
 
             if (response.ok) {
-                setMrMoms(json)
-
+                dispatch({type: 'SET_MRMOMS', payload: json })
             }
-
         }
         
         fetchMrMoms()
 // This fires my useEffect once
-// eslint-disable-next-line
-}, [])
+}, [dispatch])
 
     return (
         <div className="home">

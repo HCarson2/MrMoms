@@ -34,6 +34,22 @@ const getMrMom = async (req, res) => {
 const createMrMom = async (req, res) => {
     const {title, task, chore} = req.body
 
+    // This lets me know which fields are empty when I do a post reaquest
+    let emptyField = []
+
+    if (!title) {
+        emptyFiled.push('title')
+    }
+    if (!task) {
+        emptyField.push('task')
+    }
+    if (!chore) {
+        emptyField.push('chore')
+    }
+    if (emptyField.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all fields', emptyFields})
+    }
+
     // Add doc to Database
     try {
       const mrMom = await MrMom.create({title, task, chore})

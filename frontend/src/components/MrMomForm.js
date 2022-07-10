@@ -1,11 +1,16 @@
 import { useState } from "react"
+import { useMrMomsContext } from '../hooks/useMrMomsContext'
+
 
 // Form for 3 input fields
 const MrMomForm = () => {
+    const { dispatch } = useMrMomsContext()
+
     const [title, setTitle] = useState('')
     const [task, setTask] = useState('')
     const [chore, setChore] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
 
 // Submit function
@@ -26,13 +31,16 @@ const MrMomForm = () => {
 
         if (!response.ok) {
             setError(json.error)
+            setEmptyFields(json.empty)
         }
         if (response.ok) {
             setTitle('')
             setTask('')
             setChore('')
             setError(null)
+            setEmptyFields([])
             console.log('New MrMom added', json)
+            dispatch({type: 'CREATE_MRMOM', payload: json})
         }
 
     }
@@ -47,6 +55,7 @@ const MrMomForm = () => {
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
+            className={emptyFields.includes('title') ? 'error' : ''}
             />
 
             <label>Task:</label>
@@ -54,6 +63,7 @@ const MrMomForm = () => {
             type="text"
             onChange={(e) => setTask(e.target.value)}
             value={task}
+            className={emptyFields.includes('task') ? 'error' : ''}
             />
 
             <label>Chore:</label>
@@ -61,6 +71,7 @@ const MrMomForm = () => {
             type="text"
             onChange={(e) => setChore(e.target.value)}
             value={chore}
+            className={emptyFields.includes('chore') ? 'error' : ''}
             />
 
             <button>Add Mr. Mom</button>
