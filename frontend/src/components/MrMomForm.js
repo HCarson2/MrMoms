@@ -24,31 +24,33 @@ const MrMomForm = () => {
             method: 'POST',
             body: JSON.stringify(mrMom),
             headers: {
-                'Content-type': 'application/json'
+                'Content-Type': 'application/json'
             }
         })
         const json = await response.json()
 
         if (!response.ok) {
             setError(json.error)
-            setEmptyFields(json.empty)
+            setEmptyFields(json.emptyFields)
         }
         if (response.ok) {
+            setEmptyFields([])
+            setError(null)
             setTitle('')
             setTask('')
             setChore('')
-            setError(null)
-            setEmptyFields([])
-            console.log('New MrMom added', json)
+            // console.log('New MrMom added', json)
             dispatch({type: 'CREATE_MRMOM', payload: json})
         }
 
     }
 
+
     return (
         // Create my form / Create onSubmit handler / Each attribute will have a separate line
         <form className="create" onSubmit={handleSubmit}>
-            <h3>Add A New Mr. Mom</h3>
+
+            <h3>Add a New Mr. Mom</h3>
 
             <label>Job Title:</label>
             <input

@@ -35,19 +35,19 @@ const createMrMom = async (req, res) => {
     const {title, task, chore} = req.body
 
     // This lets me know which fields are empty when I do a post reaquest
-    let emptyField = []
+    let emptyFields = []
 
     if (!title) {
-        emptyFiled.push('title')
+        emptyFields.push('title')
     }
     if (!task) {
-        emptyField.push('task')
+        emptyFields.push('task')
     }
     if (!chore) {
-        emptyField.push('chore')
+        emptyFields.push('chore')
     }
-    if (emptyField.length > 0) {
-        return res.status(400).json({ error: 'Please fill in all fields', emptyFields})
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all fields', emptyFields })
     }
 
     // Add doc to Database
@@ -79,6 +79,8 @@ const deleteMrMom = async (req, res) => {
 
 // Update a mrMom
 const updateMrMom = async (req, res) => {
+    const {title, task, chore} = req.body
+
     const {id} = req.params
     
     // This method checks to see if id is valid
@@ -97,11 +99,7 @@ const updateMrMom = async (req, res) => {
     }
 
     res.status(200).json(mrMom)
-
-
-
 }
-
 // Export Functions / Controllers
 module.exports = {
     getMrMoms,

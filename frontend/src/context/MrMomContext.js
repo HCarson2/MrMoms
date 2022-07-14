@@ -13,15 +13,23 @@ export const mrMomsReducer = (state, action) => {
             return {
                 mrMoms: [action.payload, ...state.mrMoms]
             }
+        // case 'UPDATE_MRMOM':
+        //         return {
+        //             mrMoms: state.mrMoms.filter((mrMom) => mrMom._id !== action.payload._id)
+        //         }
+                   
             case 'DELETE_MRMOM':
                 return {
                     mrMoms: state.mrMoms.filter((mrMom) => mrMom._id !== action.payload._id)
                 }
         default:
-            return state    
+            return state 
+            
+        
+        
+                
     }
 }
-
 // Provide context to my application tree so that components can access it
 export const MrMomsContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(mrMomsReducer, {
